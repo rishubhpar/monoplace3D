@@ -1,1 +1,322 @@
-### MonoPlace3D website
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MonoPlace3D: Learning 3D-Aware Object Placement for 3D Monocular Detection">
+  <meta name="keywords" content="Monocular 3D Detection, Diffusion model, Object Placement, Data Augmentation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>MonoPlace3D</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./images/car_logo.jpg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-1 publication-title">MonoPlace3D: Learning 3D-Aware Object Placement for 3D Monocular Detection</h2>
+          <h2 class="title is-2 conference-title">CVPR 2025</h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://rishubhpar.github.io/">Rishubh Parihar</a>,</span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/srinjay-sarkar-1501b9112/">Srinjay Sarkar</a>,</span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/sarthak-22/">Sarthak Vora</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/jogendra/">Jogendra Kundu</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://cds.iisc.ac.in/faculty/venky/">R. Venkatesh Babu</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://val.iisc.ac.in"><strong>Vision and AI Lab</strong></a> </span>
+            <br>
+            <span class="author-block"><strong>Indian Institute of Science, Bangalore</strong></span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- </span>
+              <span class="link-block">
+                <a href="https://rishubhpar.github.io/monoplace3D"                       // change
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (Coming soon)</span>
+                </a> -->
+
+              </span>
+              <span class="link-block">
+              <a href="./monoPlace3D.pdf" 
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+              <span>Paper</span>
+                </a>
+              </span> 
+              <!-- Video Link.
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=t9GJT1HnQhU"                       // change
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://rishubhpar.github.io/monoplace3D"                        // change
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video 
+        src="./media/teaser-video.mp4" 
+        controls 
+        style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px; width: 100%; height: auto;">
+        Your browser does not support the video tag.
+      </video>
+      <h2 class="subtitle has-text-centered">
+        We augment monocular 3D detection datasets by learning object placement and realistically inserting cars in scenes. 
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p style="font-size: 18px;">
+            Current monocular 3D detectors are held back by the limited diversity and scale of real-world datasets. While data augmentation certainly helps, it’s particularly difficult to generate realistic scene-aware augmented data for outdoor settings. Most current approaches to synthetic data generation focus on realistic object appearance through improved rendering techniques. However, we show that where and how objects are positioned is just as crucial for training effective 3D monocular detectors. The key obstacle lies in automatically determining realistic object placement parameters - including position, dimensions, and directional alignment when introducing synthetic objects into actual scenes. 
+            
+            To address this, we introduce MonoPlace3D, a novel system that considers the 3D scene content to create realistic augmentations. Specifically, given a background scene, MonoPlace3D learns a distribution over plausible 3D bounding boxes. Subsequently, we render realistic objects and place them according to the locations sampled from the learned distribution. Our comprehensive evaluation on two standard datasets KITTI and NuScenes, demonstrates that MonoPlace3D significantly improves the accuracy of multiple existing monocular 3D detectors while being highly data efficient.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+<!--     <div class="columns is-centered has-text-centered"> -->
+<!--       <div class="column is-four-fifths"> -->
+<!--         <h2 class="title is-3">Video</h2> -->
+<!--         <div class="publication-video"> -->
+<!--           <iframe src="" -->
+<!--                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <style>
+  </style>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Learning plausible object placement</h2>
+    </div>
+    <div class="content has-text-justified" >
+      <!-- <h3 class="title is-3">Key idea</h3> -->
+      <p style="font-size: 18px;">Given a monocular background image, we train a placement network that learns the distribution of plausible 3D object placement. 
+        We train the placement network by inpainting the objects from existing road scenes and regressing to predict 3D bounding boxes for objects. 
+        Instead of learning a point estimates, we propose Geometry aware augmentation and Variational sampling to learn the distribution of plausible 3D boxes given a monocular background image.
+      </p>
+      <br>
+      <img src="./media/object-placement-image.png" alt="scheme" style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px;">
+    <br>
+  </div>
+  </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <style>
+  </style>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Generating realistic car renderings</h2> 
+    </div>
+    <div class="content has-text-justified" >
+      <!-- <h3 class="title is-3">Key idea</h3> -->
+      <p style="font-size: 18px;">Given the predicted distribution of 3D bounding boxes, we sample some objects that belong to the 3D bounding box for generating augmentations. As we already have the corresponding 3D bounding boxes of the input objects we can use these augmentations to perform 3D object detection. 
+      </p>
+      <br>
+      <img src="./media/rendering-image.png" alt="scheme" style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px;">
+      <br>
+      <!-- <p>a) SA-PlaceNet Architecture:} Given an input background image and corresponding depth to predict the means of a multi-dimensional Gaussian distribution over 3D bounding boxes. 3D bounding boxes are sampled from each of these Gaussian to compute the training loss. \textbf{b) Geometry-aware augmentation} in BEV (Birds Eye View). For a given source car location ($b_{loc}$), we first find $K$ nearest neighbors with the same orientation and augment the location to $\tilde{b}_{loc}$ by interpolating with neighboring locations $n_{loc}$</p> -->
+  </div>
+  </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <style>
+  </style>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Augmenting 3D detection datasets</h2> 
+    </div>
+    <div class="content has-text-justified" >
+      <!-- <h3 class="title is-3">Key idea</h3> -->
+      <p style="font-size: 18px;">Given an monocular image, MonoPlace3D generates realistic augmentations by placing cars in predicted 3D bounding boxes. This provides realistic 3D-aware augmentations with accurate 3D bounding box annotations for monocular 3D detection.
+      </p>
+      <br>
+      <img src="./media/scene-augmentation.png" alt="scheme" style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px;">
+      <br>
+      <!-- <p>a) SA-PlaceNet Architecture:} Given an input background image and corresponding depth to predict the means of a multi-dimensional Gaussian distribution over 3D bounding boxes. 3D bounding boxes are sampled from each of these Gaussian to compute the training loss. \textbf{b) Geometry-aware augmentation} in BEV (Birds Eye View). For a given source car location ($b_{loc}$), we first find $K$ nearest neighbors with the same orientation and augment the location to $\tilde{b}_{loc}$ by interpolating with neighboring locations $n_{loc}$</p> -->
+  </div>
+  </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <style>
+  </style>
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Improving monocular 3D detection</h2> 
+    </div>
+    <div class="content has-text-justified" >
+      <!-- <h3 class="title is-3">Key idea</h3> -->
+      <p style="font-size: 18px;">We augment the widely uses autonomous driving dataset with our generated augmentations to train several monocular 3D detectors. The trained model consistently outperforms the baselines across model architectures. 
+      </p>
+      <br>
+      <img src="./media/det-3d.png" alt="scheme" style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px;">
+      <br>
+      <!-- <p>a) SA-PlaceNet Architecture:} Given an input background image and corresponding depth to predict the means of a multi-dimensional Gaussian distribution over 3D bounding boxes. 3D bounding boxes are sampled from each of these Gaussian to compute the training loss. \textbf{b) Geometry-aware augmentation} in BEV (Birds Eye View). For a given source car location ($b_{loc}$), we first find $K$ nearest neighbors with the same orientation and augment the location to $\tilde{b}_{loc}$ by interpolating with neighboring locations $n_{loc}$</p> -->
+      <br>
+      <img src="./media/det-metrics.png" alt="scheme" style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px;">
+      <br>
+  </div>
+  </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+  <div class="bibtex">
+  <style>
+    .bibtex{
+  text-align: left;
+}
+  </style>
+    <h2 class="title">Acknowledgments</h2>
+    <p style="font-size: 18px;">
+      The authors are thankful to Tejan Karmali, Ankit Dhiman and Abhijnya Bhat for reviewing the draft and providing helpful feedback. Rishubh Parihar is partly supported by PMRF from Govt. of India and Kotak AI Center at IISc. 
+    </p>
+</div>
+</div>
+</section>
+
+      
+<hr>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop">
+  <div class="bibtex">
+  <style>
+    .bibtex{
+  text-align: left;
+}
+
+
+  </style>
+
+
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{rishubh2025monoplace3D,
+      title={MonoPlace3D: Learning 3D-Aware Object Placement for 3D Monocular Detection},
+      author={Rishubh Parihar, Srinjay Sarkar, Sarthak Vora, Jogendra Kundu, R. Venkatesh Babu},
+      journal={Conference on Computer Vision and Pattern Recognition},      
+      year={2025}, 
+}</code></pre>
+
+</div>
+</div>
+
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is based on the template from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> website under the <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="./static/resize/imageMapResizer.min.js"></script>
+<script>
+  imageMapResize();
+  </script>
+
+</body>
+</html>
