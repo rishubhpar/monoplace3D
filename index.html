@@ -173,9 +173,10 @@
     </div>
     <div class="content has-text-justified" >
       <!-- <h3 class="title is-3">Key idea</h3> -->
-      <p style="font-size: 18px;">Given a monocular background image, we train a placement network that learns the distribution of plausible 3D object placement. 
-        We train the placement network by inpainting the objects from existing road scenes and regressing to predict 3D bounding boxes for objects. 
-        Instead of learning a point estimates, we propose Geometry aware augmentation and Variational sampling to learn the distribution of plausible 3D boxes given a monocular background image.
+      <p style="font-size: 18px;">
+        We propose SA-PlaceNet, a placement network that predicts plausible 3D object locations from a single scene image. It learns the distribution of 3D object bounding boxes conditioned on the input image. To train the model, we synthetically generate a paired dataset of scene images and corresponding 3D box placements by inpainting objects into the scenes.
+        However, because real scenes contain only a few objects, the training signal is weak. Directly training SA-PlaceNet on this limited dataset leads to overfitting to those few object placements.
+        To overcome this, we introduce a geometry-aware augmentation module that refines box locations by interpolating with neighboring object positions. Additionally, instead of predicting a fixed set of 3D boxes for the given input image, SA-PlaceNet outputs distribution over possible 3D boxes. These modifications enable the model to generate a continuous, diverse set of plausible object placements.
       </p>
       <br>
       <img src="./media/object-placement-image.png" alt="scheme" style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px;">
@@ -194,7 +195,7 @@
     </div>
     <div class="content has-text-justified" >
       <!-- <h3 class="title is-3">Key idea</h3> -->
-      <p style="font-size: 18px;">Given the predicted distribution of 3D bounding boxes, we sample some objects that belong to the 3D bounding box for generating augmentations. As we already have the corresponding 3D bounding boxes of the input objects we can use these augmentations to perform 3D object detection. 
+      <p style="font-size: 18px;"> We generate realistic scenes by rendering cars within predicted 3D bounding boxes. Our proposed pipeline leverages the synthetic ShapeNet dataset to create high-quality car renderings. Specifically, we sample a car model from ShapeNet and render it in Blender according to the target bounding box. To enhance realism, we then transform the rendered image using edge-conditioned ControlNet. This process ensures realistic renderings of the car that align with the 3D bounding box and blend seamlessly into the background scenes. 
       </p>
       <br>
       <img src="./media/rendering-image.png" alt="scheme" style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px;">
@@ -214,7 +215,8 @@
     </div>
     <div class="content has-text-justified" >
       <!-- <h3 class="title is-3">Key idea</h3> -->
-      <p style="font-size: 18px;">Given an monocular image, MonoPlace3D generates realistic augmentations by placing cars in predicted 3D bounding boxes. This provides realistic 3D-aware augmentations with accurate 3D bounding box annotations for monocular 3D detection.
+      <p style="font-size: 18px;">We use the proposed scene completion framework to augment datasets for monocular 3D object detection. Given a dataset like KITTI, we train SA-PlaceNet to predict plausible locations for placing new cars. We augment the original scenes by placing cars at predicted 3D locations and 
+      add the corresponding 3D boxes to the label files. 
       </p>
       <br>
       <img src="./media/scene-augmentation.png" alt="scheme" style="border: 2px solid gray; border-radius: 15px; box-shadow: 0px 0px 10px #999; padding: 5px;">
